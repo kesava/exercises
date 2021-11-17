@@ -43,5 +43,21 @@ export const async = {
       });
 
     }
+  },
+   race(tasks) {
+    return function(cb) {
+      var results = [];
+      var errors = [];
+      var finished = false;
+
+      tasks.forEach((task, idx) => {
+        task(function(err, result){
+          if (!finished) {
+              finished = true;
+              return cb(err, result);
+          }
+        })
+      });
+    }
   }
 };
