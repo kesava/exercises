@@ -22,9 +22,26 @@ export const async = {
       next();
     }
   },
-  parallel(promises) {
-    return function(err, data) {
-      console.log({ err, data });
+  parallel(tasks) {
+    return function(cb) {
+      var results = [];
+      var errors = [];
+      var fired = 0;
+
+      tasks.forEach((task, idx) => {
+        task(function(err, result){
+          if (err) {
+            errors[idx] = err;
+          } else {
+            results[idx] = result;
+          }
+          
+          if (tasks.length === ++fired) {
+              return cb(errors ? errors : null, results)
+          }
+        })
+      });
+
     }
   }
 };
