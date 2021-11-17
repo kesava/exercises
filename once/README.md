@@ -3,19 +3,33 @@ Here's the basic usage of the file that you'll be creating:
 ```js
 var once = require('./') // <- this is the file you make;
 
+
 function bootstrapApp() {
   console.log('this should be shown once');
   return 22;
 }
 
-var initialize = once(bootstrapApp);
-console.log(initialize());
-console.log(initialize());
+function add(a, b, c) {
+  console.log(`adding ${a}, ${b} and ${c}: `);
+  return a + b + c;
+}
 
-// the console should show:
-// this should be shown once
+var initialize = once(bootstrapApp);
+initialize();
+initialize();
+
+const a1 = once(add);
+a1(1,2,3)
+a1(1,2,3)
+
+// 'this should be shown once'
 // 22
 // 22
+// 'adding 1, 2 and 3: '
+// 6
+// 6
+// 'adding 3, 4 and 5: '
+// 12
 
 ```
 
