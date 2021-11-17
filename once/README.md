@@ -22,6 +22,8 @@ const a1 = once(add);
 a1(1,2,3)
 a1(1,2,3)
 
+a1(3,4,5)
+
 // 'this should be shown once'
 // 22
 // 22
